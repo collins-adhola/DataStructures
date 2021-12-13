@@ -29,6 +29,10 @@ const restaurant = {
   order: function (starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
+  orderPasta: function(ing1,ing2,ing3){
+    console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`)
+  }
+
 };
 
 const arr = [2, 3, 4];
@@ -67,3 +71,49 @@ console.log(name, openingHours, categories);
 
 const {name:restuarantname,openingHours:hours, categories:tags } = restaurant;
 console.log(restuarantname, hours,tags);
+
+
+//Real world example
+// const ingredients = [
+//   prompt("Let's make pasta! Ingredient 1?"),
+//   prompt("Let's make pasta! Ingredient 1?"),
+//   prompt("Let's make pasta! Ingredient 1?"),
+// ];
+// console.log(ingredients)
+
+//you can now order pasta with a spread operator
+// restaurant.orderPasta(...ingredients);
+
+// Objects
+const newRestuarant = {foundIn:1998,...restaurant, founder:'Guiseppe'};
+console.log(newRestuarant);
+const restaurantCopy = {...restaurant};
+restaurantCopy.name  = 'Ristorante Roma';
+console.log(restaurantCopy)
+
+//Rest operator
+//pack elements into an ARRAY. opposite of spread.
+
+//SPREAD, because right side of =
+const arr1 = [1,2,...[3,4]];
+
+//REST, because on left side of =
+const[aa,bb,...others] = [1,2,3,4,5];
+console.log(aa,bb,others);
+
+
+// otherfoods creates a separate array  , and tghe pizza, risotto and not in array, that skipped will not appear.
+//Therefore the spread can only be the last element in the array.
+//There can only be one rest element.
+
+const [pizza , , risotto,...otherFood]= [
+  ...restaurant.mainMenu,
+  ...restaurant.starterMenu,
+]
+console.log(pizza, risotto, otherFood);
+
+// Spread on objects  - lets look at open days
+// Object
+
+const{sat,...weekdays }= restaurant.openingHours;
+console.log(weekdays)
