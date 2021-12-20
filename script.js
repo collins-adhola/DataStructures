@@ -29,22 +29,19 @@ const restaurant = {
   order: function (starterIndex, mainIndex) {
     return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]];
   },
-  orderPasta: function(ing1,ing2,ing3){
-    console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`)
+  orderPasta: function (ing1, ing2, ing3) {
+    console.log(`Here is your delicious pasta with ${ing1}, ${ing2}, ${ing3}`);
   },
-  orderPizza: function(mainIngredient,...otherIngredients){
-    console.log(mainIngredient),
-    console.log(otherIngredients);
-
+  orderPizza: function (mainIngredient, ...otherIngredients) {
+    console.log(mainIngredient), console.log(otherIngredients);
   },
-
 };
 
 const arr = [2, 3, 4];
-const [x, y, z] = arr;
-console.log(x, y, z);
+const [x1, y, z] = arr;
+console.log(x1, y, z);
 const [first, second] = restaurant.categories;
-console.log(first, second);
+console.log(first, second); //italian, Pizzeria
 
 //This you skip the middle on
 let [first2, , second2] = restaurant.categories;
@@ -63,20 +60,23 @@ let [starter, main] = restaurant.order(2, 0);
 console.log(starter, main);
 
 // Nested destructuring
-let nested = [5,6,[7,9]];  //skip middle and collect from second array
-let [d,,[a,b]] = nested;
-console.log(d,a,b)
+let nested = [5, 6, [7, 9]]; //skip middle and collect from second array
+let [d, , [a, b]] = nested;
+console.log(d, a, b); // 5,7,9
 
 //set default values. if you dont know length of array being destructed you can set default values to avoid returning undefined
-const [p=1,r=1,t=1,o=1]= [8,9];
-console.log(p,r,t,o)  //return 8,9,1,1
+const [p = 1, r = 1, t = 1, o = 1] = [8, 9];
+console.log(p, r, t, o); //return 8,9,1,1
 
-const {name, openingHours,categories} = restaurant;
+const { name, openingHours, categories } = restaurant;
 console.log(name, openingHours, categories);
 
-const {name:restuarantname,openingHours:hours, categories:tags } = restaurant;
-console.log(restuarantname, hours,tags);
-
+const {
+  name: restuarantname,
+  openingHours: hours,
+  categories: tags,
+} = restaurant;
+console.log(restuarantname, hours, tags);
 
 //Real world example
 // const ingredients = [
@@ -90,12 +90,11 @@ console.log(restuarantname, hours,tags);
 // restaurant.orderPasta(...ingredients);
 
 // Objects====create new restuarant object from old restuarnt and add on some more
-const newRestuarant = {foundIn:1998,...restaurant, founder:'Guiseppe'};
+const newRestuarant = { foundIn: 1998, ...restaurant, founder: 'Guiseppe' };
 console.log(newRestuarant);
-const restaurantCopy = {...restaurant};
-restaurantCopy.name  = 'Ristorante Roma';
-console.log(restaurantCopy)
-
+const restaurantCopy = { ...restaurant };
+restaurantCopy.name = 'Ristorante Roma';
+console.log(restaurantCopy);
 
 //NB SPREAD UNPARCKS ARRAY INTO INDIVIDUL ELEMENTS WHILE REST PACKS ELEMENTS INTO AN ARRAY TO rest.
 
@@ -103,16 +102,14 @@ console.log(restaurantCopy)
 //pack elements into an ARRAY. opposite of spread.
 
 //SPREAD, because right side of =
-const arr1 = [1,2,...[3,4]];
-
-
+const arr1 = [1, 2, ...[3, 4]];
 
 //rest Operator opposite of spread operator. Spread allows to build new arrays or pass multiple value to functions
 // spread operator unpacks the array while Rest packs elements into an array.
 //spread is used on right hand side of equal sign.
 //REST, because on left side of =
-const[aa,bb,...others] = [1,2,3,4,5];
-console.log(aa,bb,others); // 1,2,[3,4,5]. It takes the 'rest' of what is left from the destructuring and makes another array called 'others'
+const [aa, bb, ...others] = [1, 2, 3, 4, 5];
+console.log(aa, bb, others); // 1,2,[3,4,5]. It takes the 'rest' of what is left from the destructuring and makes another array called 'others'
 
 //Therefore the spread can only be the last element in the array.
 //There can only be one rest element.
@@ -123,15 +120,15 @@ const [pizza, , risotto, ...otherFood] = [
 console.log(pizza, risotto, otherFood);
 
 // If you want to take the weekdays in one array and leave out saturday. call new array weedays
-const{saturday, ...weekdays} = restaurant.openingHours;
-console.log(weekdays)
+const { saturday, ...weekdays } = restaurant.openingHours;
+console.log(weekdays);
 
 //2. functions
 // const add = function(...numbers){
 //   let sum=0;
 //  for (let i=0; i < numbers.length;sum++){
 //  sum += numbers[i];
-//  console.log(sum)   
+//  console.log(sum)
 //   }
 // }
 
@@ -149,33 +146,32 @@ console.log(weekdays)
 
 //Short circuting
 //Use Any data type, return Any type as long as it is a truthy.
-console.log(3|| 'Jonas');  //3
+console.log(3 || 'Jonas'); //3
 console.log('' || 'Jonas'); // Jonas
-console.log(true|| 0);  //true
+console.log(true || 0); //true
 console.log(undefined || null); //null i.e returns the last value even if they are both falsy
-console.log(undefined || 0 || ''|| 'hello', 23||null); // hello
+console.log(undefined || 0 || '' || 'hello', 23 || null); // hello
 //practical use. You want to get number of guests but you dont know whether they exist
-const guests1 = restaurant.numGuests ?numGuests : 10;
-console.log(guests1) // 10 bse numGuests is undefined
+const guests1 = restaurant.numGuests ? numGuests : 10;
+console.log(guests1); // 10 bse numGuests is undefined
 
 const guests2 = restaurant.numGuests || 10;
-console.log(guests2)
+console.log(guests2);
 
 //The problem with the above is if the numGuests is 0, it will return 0;
 //solution?\
 
 //& is diferent, it returns the first false value without checking the second
 // and if both are tur, the end value is returned
-console.log(7 && 'Jonus') // Jonus
-console.log('Hello'&& 22 && null && 'Jonas'); // null so will short-circuit Jonas
+console.log(7 && 'Jonus'); // Jonus
+console.log('Hello' && 22 && null && 'Jonas'); // null so will short-circuit Jonas
 
 //Practical example+++means if restaurant.order pizza exists then return the function.
-if(restaurant.orderPizza){
-  restaurant.orderPizza('mushroom', 'spinach')
+if (restaurant.orderPizza) {
+  restaurant.orderPizza('mushroom', 'spinach');
 }
-// same as 
-restaurant.orderPizza && restaurant.orderPizza('mushroom', 'spinach')
-
+// same as
+restaurant.orderPizza && restaurant.orderPizza('mushroom', 'spinach');
 
 // nullish coerlescing operator
 // When using a || it will see the 0 as a false and therefore miss the zero values while trhe null operator recognises 0;
@@ -184,20 +180,17 @@ restaurant.orderPizza && restaurant.orderPizza('mushroom', 'spinach')
 const guestNum = 0;
 const guests22 = guestNum || 10;
 const guests21 = guestNum ?? 10;
-console.log(guests22);   // 10
-console.log(guests21);   // 0
-
+console.log(guests22); // 10
+console.log(guests21); // 0
 
 const rest1 = {
   name: 'capri',
   numGuests: '20',
- 
 };
 const rest2 = {
   name: 'La Plazza',
   owner: 'Giovanni',
 };
-
 
 //OR assignment operator
 //Short circuting
@@ -215,23 +208,110 @@ rest1.numGuests ??= 10;
 // rest2.owner = rest2.owner && '<ANONYMOUS>';
 
 // AND operatoir Same as above
-rest1.owner &&= '<ANONYMOUS>';  // onwer will not appear or set to undefined like the above.
+rest1.owner &&= '<ANONYMOUS>'; // onwer will not appear or set to undefined like the above.
 rest2.owner &&= '<ANONYMOUSName>';
 
-console.log(rest1,rest2);
-
+console.log(rest1, rest2);
 
 // Assignment
 // Coding Challenge #1
 // We're building a football betting app (soccer for my American friends 😅)!
 // Suppose we get data from a web service about a certain game ('game' variable on next page). In this challenge we're gonna work with that data.
 // Your tasks:
-// 1. Createoneplayerarrayforeachteam(variables'players1'and 'players2')
-// 2. Thefirstplayerinanyplayerarrayisthegoalkeeperandtheothersarefield players. For Bayern Munich (team 1) create one variable ('gk') with the goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10 field players
-// 3. Createanarray'allPlayers'containingallplayersofbothteams(22 players)
+
 // 4. Duringthegame,BayernMunich(team1)used3substituteplayers.Socreatea new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
 // 5. Basedonthegame.oddsobject,createonevariableforeachodd(called 'team1', 'draw' and 'team2')
-// 6. Writeafunction('printGoals')thatreceivesanarbitrarynumberofplayer names (not an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
-// 7. Theteamwiththeloweroddismorelikelytowin.Printtotheconsolewhich team is more likely to win, without using an if/else statement or the ternary operator.
+
+// 7. The team withtheloweroddismorelikelytowin.Printtotheconsolewhich team is more likely to win, without using an if/else statement or the ternary operator.
 // Test data for 6.: First, use players 'Davies', 'Muller', 'Lewandowski' and 'Kimmich'. Then, call the function again with players from game.scored
 // GOOD LUCK 😀
+
+const game = {
+  team1: 'Bayern Munich',
+  team2: 'Borrussia Dortmund',
+  players: [
+    [
+      'Neuer',
+      'Pavard',
+      'Martinez',
+      'Alaba',
+      'Davies',
+      'Kimmich',
+      'Goretzka',
+      'Coman',
+      'Muller',
+      'Gnarby',
+      'Lewandowski',
+    ],
+    [
+      'Burki',
+      'Schulz',
+      'Hummels',
+      'Akanji',
+      'Hakimi',
+      'Weigl',
+      'Witsel',
+      'Hazard',
+      'Brandt',
+      'Sancho',
+      'Gotze',
+    ],
+  ],
+  score: '4:0',
+  scored: ['Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels'],
+  date: 'Nov 9th, 2037',
+  odds: {
+    team1: 1.33,
+    x: 3.25,
+    team2: 6.5,
+  },
+};
+
+// 1. Create one player array for each team(variables'players1'and 'players2')
+
+let players1, players2;
+
+[players1, players2] = game.players;
+
+console.log(players1);
+console.log(players2);
+
+// 2. The first player in any player array is the goal keeper and the others are field players. For Bayern Munich (team 1) create one variable ('gk') with the goalkeeper's name, and one array ('fieldPlayers') with all the remaining 10 field players
+const [gk, ...fieldPlayers] = players1;
+console.log(fieldPlayers);
+console.log(gk);
+
+// 3. Create an array'allPlayers'containingallplayers of both teams(22 players)
+let allPlayers = [];
+allPlayers = [...players1, ...players2];
+console.log(allPlayers);
+
+// 4. Duringthegame,BayernMunich(team1)used3substitute players.So create a new array ('players1Final') containing all the original team1 players plus 'Thiago', 'Coutinho' and 'Perisic'
+
+const playersFinal = ['Thiago', 'Coutinho', 'Perisic', ...players1];
+console.log(playersFinal);
+
+// 5. Based on the game.odds object,create one variable for each odd (called 'team1', 'draw' and 'team2')
+
+let {
+  odds: { team1, x: draw, team2 },
+} = game;
+
+console.log(team1, draw, team2);
+console.log(draw);
+
+// 6. Write a function('printGoals')that receives an arbitrary number of player names (not an array) and prints each of them to the console, along with the number of goals that were scored in total (number of player names passed in)
+
+const printGoals = function (...players) {
+  console.log(`${players.length} goals were scored`);
+};
+printGoals('Lewandowski', 'Gnarby', 'Lewandowski', 'Hummels');
+
+printGoals('Lewandowski', 'Gnarby');
+printGoals(...game.scored);
+//7. The team with the lower odd is more likely to win. Print to the console which team is more likely to win, without using an if/else statement or the ternary operator.
+
+console.log(team1 < team2 ? 'team1 wins' : 'team2 has won');
+
+//team1 < team2 && console.log('Team 1 is likely to Win);
+//team1 > team2 && console.log('Team 2 is likely to Win);
